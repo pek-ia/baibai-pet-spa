@@ -13,7 +13,7 @@ public class DataManagerMySQLImpl implements DataManager {
 
         try {
            connection = DriverManager.getConnection(
-                   "jdbc:mysql://localhost:3306/baibai_petspa", "poweruser", "poweruser");
+                   "jdbc:mysql://localhost:3306/baibai_petspa", "user", "user");
         } catch (SQLException e) {
                 throw new RuntimeException(e);
         }

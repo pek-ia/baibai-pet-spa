@@ -1,6 +1,5 @@
 import java.sql.*;
 import java.time.LocalDate;
-import java.sql.*;
 
 public class BaiBaiPetSpa {
     public static void main(String[] args) {
@@ -20,7 +19,9 @@ public class BaiBaiPetSpa {
         /* bai-bai's birthday */
         System.out.println("His Birthday is " + baibai.getBirthday());
 
-
+        /*
+         * HOWEVER, WE CAN ALSO DO THE SAME SORTS OF THINGS USING A DATABASE
+         */
         DataManager dm = new DataManagerMySQLImpl();
         int baibaiPetId = 1;
         String petName = dm.getPetFullName(baibaiPetId);
@@ -28,8 +29,8 @@ public class BaiBaiPetSpa {
 
         Date petBirthday = dm.getPetBirthday(baibaiPetId);
 
-        System.out.println(petName);
-        System.out.println(petBirthday);
+        System.out.println("My pet's name is " + petName);
+        System.out.println("His birthday is " + petBirthday);
 
 
     }
