@@ -1,3 +1,5 @@
+package org.baibai.data;
+
 import java.sql.Date;
 public interface DataManager {
     Date getPetBirthday(int petId);

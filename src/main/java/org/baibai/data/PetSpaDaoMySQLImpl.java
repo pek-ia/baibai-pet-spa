@@ -1,3 +1,8 @@
+package org.baibai.data;
+
+import org.baibai.model.Owner;
+import org.baibai.model.Pet;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

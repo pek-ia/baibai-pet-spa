@@ -1,3 +1,5 @@
+package org.baibai.model;
+
 public class Owner {
     private int ownerId;
     private String firstName;
