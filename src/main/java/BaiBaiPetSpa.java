@@ -1,6 +1,5 @@
 import org.apache.commons.dbcp2.BasicDataSource;
 
-import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDate;
 
@@ -15,7 +14,7 @@ public class BaiBaiPetSpa {
         Pet baibai = new Pet("Bai-Bai", "Cat", null, paul);
 
         /* bai-bai's full name */
-        System.out.println("My pet's name is " + baibai.getName() + " " + paul.getLastName());
+        System.out.println("My pet's full name is " + baibai.getName() + " " + paul.getLastName());
 
         /* set his birthday to 14 years ago */
         baibai.setBirthday(LocalDate.now().minusYears(14));
@@ -37,7 +36,7 @@ public class BaiBaiPetSpa {
         System.out.println("\nSelecting COLUMN VALUES from a database:");
         DataManager dm = new DataManagerMySQLImpl(dataSource);
         String petName = dm.getPetFullName(baibaiPetId);
-        dm.setPetBirthday(baibaiPetId, Date.valueOf(LocalDate.now()));
+        dm.setPetBirthday(baibaiPetId, Date.valueOf(LocalDate.now().minusYears(14)));
 
         Date petBirthday = dm.getPetBirthday(baibaiPetId);
 
