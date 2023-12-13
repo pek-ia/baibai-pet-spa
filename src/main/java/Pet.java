@@ -18,6 +18,15 @@ public class Pet {
         return name;
     }
 
+    public String getFullName(){
+        String fullName = getName();
+        if (owner != null){
+            fullName += " ";
+            fullName += owner.getLastName();
+        }
+        return fullName;
+    }
+
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }

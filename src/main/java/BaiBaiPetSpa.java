@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class BaiBaiPetSpa {
     public static void main(String[] args) {
 
+        System.out.println("\nUsing java Pet and Owner objects:");
         /*
          * In Java, we can create objects and use setters and getters, like this:
          */
@@ -28,9 +29,13 @@ public class BaiBaiPetSpa {
 
         BasicDataSource dataSource = getBaiBaiDataSource();
 
-
-        DataManager dm = new DataManagerMySQLImpl(dataSource);
         int baibaiPetId = 1;
+
+        /*
+         * OPTION 1 - Select values from a database
+         */
+        System.out.println("\nSelecting COLUMN VALUES from a database:");
+        DataManager dm = new DataManagerMySQLImpl(dataSource);
         String petName = dm.getPetFullName(baibaiPetId);
         dm.setPetBirthday(baibaiPetId, Date.valueOf(LocalDate.now()));
 
@@ -38,6 +43,15 @@ public class BaiBaiPetSpa {
 
         System.out.println("My pet's full name is " + petName);
         System.out.println("His birthday is " + petBirthday);
+
+        /*
+         * OPTION 2 - Select Pet and Owner objects from the database
+         */
+        System.out.println("\nSelecting OBJECTS from a database:");
+        PetSpaDAO psd = new PetSpaDaoMySQLImpl(dataSource);
+        Pet p = psd.getPetById(baibaiPetId);
+        System.out.println("My pet's full name is " + p.getFullName());
+        System.out.println("His birthday is " + p.getBirthday());
 
 
     }
