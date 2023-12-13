@@ -1,21 +1,15 @@
+import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDate;
 
 public class DataManagerMySQLImpl implements DataManager {
     private Connection connection;
 
-    public DataManagerMySQLImpl() {
+    public DataManagerMySQLImpl(DataSource dataSource) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-           connection = DriverManager.getConnection(
-                   "jdbc:mysql://localhost:3306/baibai_petspa", "user", "user");
+            connection = dataSource.getConnection();
         } catch (SQLException e) {
-                throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -23,15 +17,16 @@ public class DataManagerMySQLImpl implements DataManager {
     public Date getPetBirthday(int petId) {
         Date d = null;
 
-        try (Statement statement = connection.createStatement()) {
-
-            ResultSet birthdayRS = statement.executeQuery("""
-                    SELECT birthday 
+        try (PreparedStatement statement = connection.prepareStatement( """
+                    SELECT birthday AS b
                     FROM pet
-                    WHERE pet_id = 1;
-                    """);
+                    WHERE pet_id = ?;
+                    """)) {
+
+            statement.setInt(1, petId);
+            ResultSet birthdayRS = statement.executeQuery();
             birthdayRS.next();
-            d = birthdayRS.getDate("birthday");
+            d = birthdayRS.getDate("b");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
