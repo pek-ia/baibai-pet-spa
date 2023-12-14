@@ -9,6 +9,11 @@ public class Pet {
     private LocalDate birthday;
     private Owner owner;
 
+    public Pet(int petId, String name, String species, LocalDate birthday, Owner owner) {
+        this(name, species, birthday, owner);
+        this.petId = petId;
+    }
+
     public Pet(String name, String species, LocalDate birthday, Owner owner) {
         this.name = name;
         this.species = species;
@@ -16,7 +21,17 @@ public class Pet {
         this.owner = owner;
     }
 
-    public String getName() {
+    public int getPetId() {
+        return petId;
+    }
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }    public String getName() {
         return name;
     }
 
