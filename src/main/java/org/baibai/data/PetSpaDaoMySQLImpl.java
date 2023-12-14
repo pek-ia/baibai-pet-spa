@@ -14,6 +14,7 @@ public class PetSpaDaoMySQLImpl implements PetSpaDAO {
     private DataSource dataSource;
     private Connection connection;
     private OwnerDAO ownerDAO;
+    private PetDAO petDao;
 
     public PetSpaDaoMySQLImpl(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -22,37 +23,14 @@ public class PetSpaDaoMySQLImpl implements PetSpaDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        petDao = new PetDaoMySqlImpl(dataSource);
         ownerDAO = new OwnerDAOMySqlImpl(dataSource);
 
     }
 
     @Override
     public Pet getPetById(int petId) {
-
-        Pet pet = null;
-
-        // create prepared statement
-        //    define the SQL SELECT to bring back one record from pet table
-
-        try (PreparedStatement statement = connection.prepareStatement("""
-                    SELECT * FROM pet
-                    WHERE pet_id = ?;
-                    """) ) {
-
-            statement.setInt(1, petId);
-
-            ResultSet rs = statement.executeQuery();
-
-            rs.next();
-            pet = new Pet( rs.getString("name"), rs.getString("species"),
-                    (rs.getDate("birthday")  == null) ? null: rs.getDate("birthday").toLocalDate(),
-                    getOwnerById( rs.getInt("owner_id")) );
-
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return pet;
+        return petDao.getById(petId);
     }
 
 
